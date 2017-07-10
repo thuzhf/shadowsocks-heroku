@@ -7,6 +7,8 @@ WebSocketServer = WebSocket.Server
 parseArgs = require("minimist")
 Encryptor = require("./encrypt").Encryptor
 
+request = require("request")
+
 options =
   alias:
     'b': 'local_address'
@@ -44,7 +46,8 @@ if METHOD.toLowerCase() in ["", "null", "table"]
 
 server = http.createServer (req, res) ->
   res.writeHead 200, 'Content-Type': 'text/plain'
-  res.end("")
+  request 'http://httpbin.org/ip', (error, response, body) ->
+    res.end(body.origin)
 
 wss = new WebSocketServer server: server
 
