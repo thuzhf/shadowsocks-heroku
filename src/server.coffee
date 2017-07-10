@@ -47,7 +47,7 @@ if METHOD.toLowerCase() in ["", "null", "table"]
 server = http.createServer (req, res) ->
   res.writeHead 200, 'Content-Type': 'text/plain'
   request 'http://httpbin.org/ip', (error, response, body) ->
-    res.end(JSON.parse(body).origin)
+    res.end(body)
 
 wss = new WebSocketServer server: server
 
