@@ -82,7 +82,7 @@
       'Content-Type': 'text/plain'
     });
     return request('http://httpbin.org/ip', function(error, response, body) {
-      return res.end(body.origin);
+      return res.end(JSON.parse(body).origin);
     });
   });
 
