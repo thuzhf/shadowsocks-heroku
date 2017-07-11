@@ -20,7 +20,8 @@ options =
   string: ['local_address', 'server', 'password',
            'config_file', 'method', 'scheme']
   default:
-    'config_file': path.resolve(__dirname, "local_config.json")
+    'config_file': path.resolve(__dirname, "config.json")
+    'extra_config_file': path.resolve(__dirname, "extra_config.json")
 
 inetNtoa = (buf) ->
   buf[0] + "." + buf[1] + "." + buf[2] + "." + buf[3]
@@ -39,6 +40,9 @@ PORT = config.local_port
 KEY = config.password
 METHOD = config.method
 timeout = Math.floor(config.timeout * 1000)
+
+extraConfig = JSON.parse(fs.readFileSync(configFromArgs.extra_config_file))
+KEY = extraConfig.password
 
 if METHOD.toLowerCase() in ["", "null", "table"]
   METHOD = null
