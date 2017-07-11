@@ -17,6 +17,7 @@ def gen_name_list(root_str, length, times):
     return results
 
 def setup_local(name_list, start_port):
+    subprocess.run('npm install', shell=True)
     for i, app_name in enumerate(name_list):
         cli = 'node local.js -s {0}.herokuapp.com -l {1} > /tmp/{0} &'.format(app_name, start_port + i)
         subprocess.Popen(cli, shell=True)
