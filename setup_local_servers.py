@@ -57,9 +57,9 @@ def main():
         cfg = json.load(f)
     app_name_list = gen_name_list(cfg['root_str'], cfg['length'], cfg['times'])
     setup_local(app_name_list, cfg['start_port'])
-    print('Getting IPs...')
-    IPs = get_IPs(app_name_list)
-    print(len(IPs), IPs)
+    #print('Getting IPs...')
+    #IPs = get_IPs(app_name_list)
+    #print(len(IPs), IPs)
 
 if __name__ == '__main__':
     main()
