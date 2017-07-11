@@ -5,7 +5,6 @@
 
 import argparse, hashlib, requests, subprocess, json
 import multiprocessing as mp
-import dill
 
 def gen_name_list(root_str, length, times):
     results = []
@@ -22,6 +21,28 @@ def setup_local(name_list, start_port):
         cli = 'node local.js -s {0}.herokuapp.com -l {1} > /tmp/{0} &'.format(app_name, start_port + i)
         subprocess.Popen(cli, shell=True)
 
+def get_IP(url, queue):
+    r = requests.get(url)
+    IP = r.json()['origin']
+    queue.put(IP)
+
+def get_IPs(name_list):
+    urls = []
+    for name in name_list:
+        url = 'https://{}.herokuapp.com'.format(name)
+        urls.append(url)
+    queue = mp.SimpleQueue()
+    pool = []
+    for url in urls:
+        p = mp.Process(target=get_IP, args=(url, queue))
+        p.start()
+        pool.append(p)
+    IPs = set()
+    for i in range(len(pool)):
+        IPs.add(queue.get())
+    return IPs
+    
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument('--config_file', default='./extra_config.json')
@@ -30,6 +51,9 @@ def main():
         cfg = json.load(f)
     app_name_list = gen_name_list(cfg['root_str'], cfg['length'], cfg['times'])
     setup_local(app_name_list, cfg['start_port'])
+    print('Getting IPs...')
+    IPs = get_IPs(app_name_list)
+    print(len(IPs), IPs)
 
 if __name__ == '__main__':
     main()
