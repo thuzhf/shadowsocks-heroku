@@ -27,7 +27,7 @@ build/Release
 node_modules
 
 ### my own
-config.json
+local_config.json
 extra_config.json
 \#*
 .\#*

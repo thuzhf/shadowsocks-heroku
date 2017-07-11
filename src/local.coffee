@@ -20,7 +20,7 @@ options =
   string: ['local_address', 'server', 'password',
            'config_file', 'method', 'scheme']
   default:
-    'config_file': path.resolve(__dirname, "config.json")
+    'config_file': path.resolve(__dirname, "local_config.json")
 
 inetNtoa = (buf) ->
   buf[0] + "." + buf[1] + "." + buf[2] + "." + buf[3]

@@ -32,7 +32,7 @@
     },
     string: ['local_address', 'server', 'password', 'config_file', 'method', 'scheme'],
     "default": {
-      'config_file': path.resolve(__dirname, "config.json")
+      'config_file': path.resolve(__dirname, "local_config.json")
     }
   };
 
