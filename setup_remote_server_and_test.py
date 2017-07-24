@@ -1,8 +1,8 @@
 #!/bin/bash
 
-ARG1=$1
-ARG2=${2:-15139}
-ARG3=$3
+ARG1=$1 # app name
+ARG2=${2:-15139} # listen port
+ARG3=$3 # password
 
 # You should 'heroku login' first!
 git remote remove heroku
